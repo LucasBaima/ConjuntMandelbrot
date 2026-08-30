@@ -1,0 +1,19 @@
+# === Binário compilado ===
+mandelbrot
+
+# === Arquivos-objeto ===
+*.o
+
+# === Saídas geradas em tempo de execução ===
+*.pgm
+times.txt
+
+# === Imagens de pré-visualização (se você gerar alguma pra testar) ===
+*.png
+
+# === Pacote de entrega ===
+*.tar
+
+# === Sistema operacional / editor ===
+.DS_Store
+.vscode/
