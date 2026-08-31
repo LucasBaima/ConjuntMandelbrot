@@ -1,15 +1,19 @@
 #ifndef MANDELBROT_H
 #define MANDELBROT_H
  
-/*
- * Nucleo do calculo do Mandelbrot: COMO CALCULAR UM PONTO.
- * Nao conhece threads nem arquivos.
- *
- * Aqui vao entrar
- *   - a funcao que roda o escape-time de um ponto (cr, ci)
- *   - o mapeamento coluna/linha -> parte real/imaginaria
- *   - a normalizacao do numero de iteracoes para 0..255
- */
+ /*Faz tres coisas:
+    1) converte o pixel (px, py) num ponto c do plano complexo
+    2) roda o escape-time nesse ponto
+    3) normaliza o numero de iteracoes para 0..255
+ 
+  Todas as quatro implementacoes (serial, openmp, pthreads) chamam ESTA
+  MESMA funcao para cada pixel. Por isso as quatro saidas sao identicas:
+  o que muda entre elas e so QUEM calcula QUAIS pixels, nunca a conta de
+  um pixel.*/
+
+  unsigned char mandelbrot_pixel(int px, int py, int largura, int altura, int max_iter);
+
+
  
 #endif /* MANDELBROT_H */
  
