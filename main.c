@@ -13,7 +13,7 @@
 /*
  * "Atalho para uma funcao de calculo": as quatro implementacoes tem a
  * mesma assinatura, entao um mesmo ponteiro consegue apontar para qualquer
- * uma delas. E o que nos deixa rodar as quatro com UMA rotina so, sem repetir codigo.
+ * uma delas. 
  */
 typedef void (*FuncCalculo)(unsigned char *, int, int, int, int);
  
@@ -31,7 +31,8 @@ static double agora_segundos(void) {
 /*
  * Le um inteiro estritamente positivo vindo do argv.
  * Devolve 1 e guarda em *destino se for valido; 0 caso contrario.
- * (strtol pega sujeira que o atoi deixaria passar, tipo "12abc" ou "-4".)
+ * (strtol pega sujeira que o atoi deixaria passar
+ *
  */
 static int ler_positivo(const char *texto, int *destino) {
     char *fim;
@@ -101,6 +102,7 @@ int main(int argc, char **argv) {
  
     /* Por enquanto so a serial. As outras entram aqui, UMA LINHA cada. */
     rodar("serial", mandelbrot_serial, img, largura, altura, max_iter, num_threads, times);
+    rodar("openmp", mandelbrot_openmp, img, largura, altura, max_iter, num_threads, times);
  
     fclose(times);
     liberar_matriz(img);
