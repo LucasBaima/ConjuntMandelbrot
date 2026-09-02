@@ -103,6 +103,7 @@ int main(int argc, char **argv) {
     /* Por enquanto so a serial. As outras entram aqui, UMA LINHA cada. */
     rodar("serial", mandelbrot_serial, img, largura, altura, max_iter, num_threads, times);
     rodar("openmp", mandelbrot_openmp, img, largura, altura, max_iter, num_threads, times);
+    rodar("pthreads1", mandelbrot_pthreads1, img, largura, altura, max_iter, num_threads, times);
  
     fclose(times);
     liberar_matriz(img);
