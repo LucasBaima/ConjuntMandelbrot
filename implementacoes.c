@@ -83,7 +83,7 @@ void mandelbrot_pthreads1(unsigned char *img, int largura, int altura,
         free(tarefas);
         return;
     }
-}
+
 
 
 
