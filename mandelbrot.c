@@ -24,15 +24,10 @@ static int escape_time(double cr, double ci, int max_iter) {
 }
 
 
-unsigned char mandelbrot_pixel(int px, int py,
-                               int largura, int altura,
-                               int max_iter) {
-    /*  a coluna (0..largura-1) sobre o intervalo real, e a linha
-     * (0..altura-1) sobre o intervalo imaginario. O "-1" faz o ultimo pixel
-     * cair exatamente na borda. A protecao evita divisao por zero caso a
-     * imagem tenha 1 pixel de lado. */
-    double div_x = (largura > 1) ? (largura - 1) : 1;
-    double div_y = (altura  > 1) ? (altura  - 1) : 1;
+unsigned char mandelbrot_pixel(int px, int py, int largura, int altura,int max_iter) {
+    
+    double div_x = largura;   // divide por W  <- referencia pega no teste
+    double div_y = altura;    
  
     /* pixel -> ponto complexo c (uma regra de tres) */
     double cr = REAL_MIN + (REAL_MAX - REAL_MIN) * px / div_x;

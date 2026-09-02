@@ -8,7 +8,7 @@
 #include "imagem.h"
  
 
-#define LOGIN "login"   // <---Substituir por um id 
+#define LOGIN "jlogb"   // <---Substituir por um id 
  
 /*
  * "Atalho para uma funcao de calculo": as quatro implementacoes tem a
@@ -49,7 +49,7 @@ static int ler_positivo(const char *texto, int *destino) {
  *   cronometra o calculo, grava o .pgm dela e anota o tempo no times.txt.
  * Devolve 1 em sucesso, 0 se a gravacao do arquivo falhar.
  */
-static int rodar(const char *sufixo, FuncCalculo calcular, //<<-- conteúdo interno sem dependencias externas(lembrar)
+static int rodar(const char *sufixo,const char *rotulo, FuncCalculo calcular, //<<-- conteúdo interno sem dependencias externas(lembrar)
                  unsigned char *img, int W, int H, int mi, int nt,
                  FILE *times) {
     char caminho[128];
@@ -63,7 +63,7 @@ static int rodar(const char *sufixo, FuncCalculo calcular, //<<-- conteúdo inte
         fprintf(stderr, "erro: nao consegui criar o arquivo %s\n", caminho);
         return 0;
     }
-    fprintf(times, "%s: %.6f s\n", sufixo, dt);
+    fprintf(times, "%s: %.6fs\n", rotulo, dt);
     return 1;
 }
 
@@ -100,11 +100,10 @@ int main(int argc, char **argv) {
         return 1;
     }
  
-    /* Por enquanto so a serial. As outras entram aqui, UMA LINHA cada. */
-    rodar("serial", mandelbrot_serial, img, largura, altura, max_iter, num_threads, times);
-    rodar("openmp", mandelbrot_openmp, img, largura, altura, max_iter, num_threads, times);
-    rodar("pthreads1", mandelbrot_pthreads1, img, largura, altura, max_iter, num_threads, times);
-    rodar("pthreads2", mandelbrot_pthreads2, img, largura, altura, max_iter, num_threads, times);
+    rodar("serial",    "Serial",    mandelbrot_serial,    img, largura, altura, max_iter, num_threads, times);
+    rodar("openmp",    "OpenMP",    mandelbrot_openmp,    img, largura, altura, max_iter, num_threads, times);
+    rodar("pthreads1", "Pthreads1", mandelbrot_pthreads1, img, largura, altura, max_iter, num_threads, times);
+    rodar("pthreads2", "Pthreads2", mandelbrot_pthreads2, img, largura, altura, max_iter, num_threads, times);
  
     fclose(times);
     liberar_matriz(img);
