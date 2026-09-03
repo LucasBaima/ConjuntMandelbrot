@@ -1,0 +1,97 @@
+===================================================================
+ EVIDENCIAS DE TESTES - Conjunto de Mandelbrot
+ Infraestrutura de Software - Implementacao 2 (Threads)
+ Gerado em: 02-09-2026
+===================================================================
+
+### AMBIENTE ###
+gcc (Ubuntu 13.3.0-6ubuntu2 24.04.1) 13.3.0
+Nucleos disponiveis (nproc): 2
+
+### 1. COMPILACAO (make) ###
+rm -f mandelbrot main.o mandelbrot.o implementacoes.o imagem.o mandelbrot_*.pgm times.txt
+gcc -O2 -Wall -Wextra -fopenmp -pthread -c main.c
+gcc -O2 -Wall -Wextra -fopenmp -pthread -c mandelbrot.c
+gcc -O2 -Wall -Wextra -fopenmp -pthread -c implementacoes.c
+gcc -O2 -Wall -Wextra -fopenmp -pthread -c imagem.c
+gcc -O2 -Wall -Wextra -fopenmp -pthread -o mandelbrot main.o mandelbrot.o implementacoes.o imagem.o
+
+### 2. TESTES DE CONTEUDO  ###
+
+--- Teste 1: ./mandelbrot 4 4 50 1 ---
+Arquivo verificado: mandelbrot_login_serial.pgm
+Saida gerada:
+5 10 10 10
+5 15 30 25
+255 255 255 255
+5 15 30 25
+Esperado:
+5 10 10 10
+5 15 30 25
+255 255 255 255
+5 15 30 25
+RESULTADO: IGUAL AO ESPERADO
+
+--- Teste 2: ./mandelbrot 6 6 30 3 ---
+Arquivo verificado: mandelbrot_login_openmp.pgm
+Saida gerada:
+8 8 17 17 17 17
+8 17 25 34 255 17
+8 25 42 255 255 42
+255 255 255 255 255 42
+8 25 42 255 255 42
+8 17 25 34 255 17
+Esperado:
+8 8 17 17 17 17
+8 17 25 34 255 17
+8 25 42 255 255 42
+255 255 255 255 255 42
+8 25 42 255 255 42
+8 17 25 34 255 17
+RESULTADO: IGUAL AO ESPERADO
+
+--- Teste 3: ./mandelbrot 10 6 40 4 ---
+Arquivo verificado: mandelbrot_login_pthreads1.pgm
+Saida gerada:
+6 6 6 12 12 12 12 12 12 12
+6 12 19 19 19 25 44 25 19 12
+6 19 19 31 38 255 255 255 44 19
+255 255 255 255 255 255 255 255 44 19
+6 19 19 31 38 255 255 255 44 19
+6 12 19 19 19 25 44 25 19 12
+Esperado:
+6 6 6 12 12 12 12 12 12 12
+6 12 19 19 19 25 44 25 19 12
+6 19 19 31 38 255 255 255 44 19
+255 255 255 255 255 255 255 255 44 19
+6 19 19 31 38 255 255 255 44 19
+6 12 19 19 19 25 44 25 19 12
+RESULTADO: IGUAL 
+
+### 3. OS QUATRO ARQUIVOS SAO IDENTICOS ENTRE SI ###
+serial == openmp : IDENTICOS
+serial == pthreads1 : IDENTICOS
+serial == pthreads2 : IDENTICOS
+
+### 4. TRATAMENTO DE ERROS (nao deve travar; encerra com mensagem) ###
+-- numero errado de argumentos --
+uso: ./mandelbrot largura altura max_iteracoes num_threads
+codigo de saida: 1
+-- argumento nao numerico --
+erro: largura, altura, max_iteracoes e num_threads devem ser inteiros positivos
+codigo de saida: 1
+-- valor negativo --
+erro: largura, altura, max_iteracoes e num_threads devem ser inteiros positivos
+codigo de saida: 1
+-- zero --
+erro: largura, altura, max_iteracoes e num_threads devem ser inteiros positivos
+codigo de saida: 1
+
+### 5. DESEMPENHO (imagem grande - mostra o ganho das threads) ###
+Conteudo do times.txt:
+Serial: 4.489482s
+OpenMP: 2.278348s
+Pthreads1: 2.312548s
+Pthreads2: 2.261821s
+
+=== FIM 
